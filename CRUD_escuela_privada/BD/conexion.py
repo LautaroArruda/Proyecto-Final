@@ -1,6 +1,6 @@
 import mysql.connector
 from mysql.connector import Error
-
+#Conexion con la BD llamada escuela_privada en mysql
 class Conexion:
     @staticmethod
     def conexionBD():
