@@ -212,12 +212,10 @@ def modificarAlumno():
         os.system("cls")
 
         # Muestra los datos del alumno a modificar
-        print("Datos actuales del alumno:")
-        print(
-            f"\nLegajo: {resultado[0]}\nNombre: {resultado[1]}\nApellido: {resultado[2]}\nDNI: {resultado[3]}")
-        print(
-            f"Dirección: {resultado[4]}\nGénero: {resultado[5]}\nFecha de Nacimiento: {resultado[6]}")
-        print(f"Email: {resultado[7]}\nCurso: {resultado[8]}\n")
+        print("Datos actuales del alumno: ")
+        print(f"\n[1] . Nombre: {resultado[1]}\n[2] . Apellido: {resultado[2]}\n[3] . DNI: {resultado[3]}")
+        print(f"[4] . Dirección: {resultado[4]}\n[5] . Género: {resultado[5]}\n[6] . Fecha de Nacimiento: {resultado[6]}")
+        print(f"[7] . Email: {resultado[7]}\n[8] . Curso: {resultado[8]}\n")
 
         # Solicita los nuevos datos para la modificación
         print("\nIngrese los nuevos datos del alumno: ")
