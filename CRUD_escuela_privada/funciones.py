@@ -410,11 +410,10 @@ def modificarAlumnoEspecifico():
             return
         os.system("cls")
         print("Datos actuales del alumno: ")
-        print(
-            f"\n[1] . Nombre: {resultado[0]}\n[2] . Apellido: {resultado[1]}\n[3] . DNI: {resultado[2]}")
-        print(
-            f"[4] . Dirección: {resultado[3]}\n[5] . Género: {resultado[4]}\n[6] . Fecha de Nacimiento: {resultado[5]}")
-        print(f"[7] . Email: {resultado[6]}\n[8] . Curso: {resultado[7]}\n")
+        print("Datos actuales del alumno: ")
+        print(f"\n[1] . Nombre: {resultado[1]}\n[2] . Apellido: {resultado[2]}\n[3] . DNI: {resultado[3]}")
+        print(f"[4] . Dirección: {resultado[4]}\n[5] . Género: {resultado[5]}\n[6] . Fecha de Nacimiento: {resultado[6]}")
+        print(f"[7] . Email: {resultado[7]}\n[8] . Curso: {resultado[8]}\n")
         # Solicita que dato quiero modificar
         menu = int(input("¿Qué dato desea modificar?: ").strip())
         if menu == 1:
