@@ -16,8 +16,7 @@ def ingresarAlumnos():
         cursor = conexion.cursor()
 
         # Ingreso de nombre del alumno
-        # strip elimina los espacios vacios que están antes y después del string
-        nombre = input("Ingrese el nombre del alumno: ").strip()
+        nombre = input("Ingrese el nombre del alumno: ").strip() # strip elimina los espacios vacios que están antes y después del string
         while not nombre.isalpha() or len(nombre) < 3:  # isalpha acepta sólo letras de la a-z
             print("Por favor, sólo ingrese caracteres.")
             nombre = input("Ingrese el nombre del alumno: ").strip()
@@ -42,23 +41,18 @@ def ingresarAlumnos():
             direccion = input("Ingrese la dirección del Alumno: ").strip()
 
         # Ingreso de dirección del alumno
-        opciones_validas = ["Masculino",
-                            "Femenino", "Transgenero", "No binario"]
-        # capitalize pone la primera letra en mayúscula
+        opciones_validas = ["Masculino","Femenino", "Transgenero", "No binario"] # capitalize pone la primera letra en mayúscula
         genero = input(
             "Ingresar género (Masculino / Femenino / Transgénero / No binario): ").capitalize()
-        while not genero.replace(" ", "").isalpha() or genero not in opciones_validas:
+        while not genero.replace(" ", "").isalpha() or genero not in opciones_validas: # replace reemplaza un caracter por otro
             print("Por favor, sólo ingresar caracteres.")
-            genero = input(
-                "Ingresar género (Masculino / Femenino / Transgénero / No binario): ").capitalize()
+            genero = input("Ingresar género (Masculino / Femenino / Transgénero / No binario): ").capitalize()
 
         # Ingreso de la fecha de nacimiento del alumno
-        fechaNacimiento = input(
-            "Ingrese la fecha de nacimiento (YYYY-MM-DD): ")
+        fechaNacimiento = input("Ingrese la fecha de nacimiento (YYYY-MM-DD): ")
 
         # Ingreso del email del alumno
-        # lower convierte todas las letras del string en minúscula
-        email = input("Ingrese el email del alumno: ").strip().lower()
+        email = input("Ingrese el email del alumno: ").strip().lower() # lower convierte todas las letras del string en minúscula
         while "@" not in email:
             print("El correo electrónico debe contener un '@'.")
             email = input("Ingrese el email del alumno: ").strip().lower()
@@ -80,11 +74,9 @@ def ingresarAlumnos():
 
         # Ejecutar la consulta
         cursor.execute(sql, valores)
-        conexion.commit()  # Confirmar los cambios en la base de datos
-        # Limpiar la consola
-        os.system("cls")
-        # rowcount devuelve el numero de las filas afectadas
-        print(f"{cursor.rowcount} registro(s) ingresado(s) exitosamente.")
+        conexion.commit()  # commit confirma los cambios en la base de datos
+        os.system("cls") # limpiar la consola
+        print(f"{cursor.rowcount} registro(s) ingresado(s) exitosamente.") # rowcount devuelve el numero de las filas afectadas
 
     except Exception as e:
         print(f"Error al ingresar datos: {e}")
@@ -117,7 +109,7 @@ def ingresarProfesor():
         telefono = input("Ingrese el teléfono del profesor: ").strip()
         if len(telefono) != 10 or not telefono.isdigit():
             while (len(telefono) != 10 or not telefono.isdigit()):
-                print("El teléfono debe contener 10 digitos.")
+                print("El teléfono debe contener 10 dígitos.")
                 telefono = input("Ingrese el telefono del profesor: ").strip()
 
         # Ingreso email del profesor
@@ -134,14 +126,13 @@ def ingresarProfesor():
                 dni = input("Ingrese el DNI del profesor: ").strip()
 
         # Ingreso de la fecha de nacimiento del profesor
-        fechaNacimiento = input(
-            "Ingrese la fecha de nacimiento (YYYY-MM-DD): ")
+        fechaNacimiento = input("Ingrese la fecha de nacimiento (YYYY-MM-DD): ")
 
         # Ingreso de la matrícula del profesor
         matricula = input("Ingrese la matrícula del profesor: ").strip()
         while not matricula.isalnum():
             print("Por favor, sólo ingresar caracteres alfanumérico.")
-            matricula = input("Ingresar la matricula del profesor: ").strip()
+            matricula = input("Ingresar la matrícula del profesor: ").strip()
 
         # Ingreso de la dirección del profesor
         direccion = input("Ingrese la dirección del profesor: ").strip()
@@ -171,10 +162,9 @@ def ingresarProfesor():
 
         # Ejecutar la consulta
         cursor.execute(sql, valores)
-        conexion.commit()  # Confirmar los cambios en la base de datos
+        conexion.commit()  # Confirma los cambios en la base de datos
         os.system("cls")  # system("cls") sirve para limpiar la consola
-        # rowcount devuelve el numero de las filas afectadas
-        print(f"{cursor.rowcount} registro(s) ingresado(s) exitosamente.")
+        print(f"{cursor.rowcount} registro(s) ingresado(s) exitosamente.") # rowcount devuelve el número de las filas añadidas
 
     except Exception as e:
         print(f"Error al ingresar datos: {e}")
@@ -195,15 +185,13 @@ def modificarAlumno():
         cursor = conexion.cursor()
 
         # Solicitar el legajo del alumno que se desea modificar
-        legajo = input(
-            "Ingrese el legajo del alumno que desea modificar: ").strip()
+        legajo = input("Ingrese el legajo del alumno que desea modificar: ").strip()
 
         # Verificar si el alumno existe
         select = "SELECT * FROM alumnos WHERE legajo = %s"
         cursor.execute(select, (legajo,))
-        # En Python, el método fetchone() se utiliza para devolver una sola fila de resultados de una consulta SQL
-        # Obtiene sÓlo el primer registro de la consulta como tuplas (no son modificables)
-        resultado = cursor.fetchone()
+        resultado = cursor.fetchone() # En Python, el método fetchone() se utiliza para devolver una sola fila de resultados de una consulta SQL
+                                      # Obtiene sólo el primer registro de la consulta como tuplas (no son modificables)
 
         if not resultado:
             print("No se encontró un alumno con el legajo proporcionado.")
@@ -241,29 +229,23 @@ def modificarAlumno():
             print("Por favor, ingrese una dirección valida.")
             direccion = input("Ingrese la dirección del alumno: ").strip()
 
-        opciones_validas = ["Masculino",
-                            "Femenino", "Transgenero", "No binario"]
-        genero = input(
-            "Ingresar el género (Masculino / Femenino / Transgénero / No binario): ").strip()
+        opciones_validas = ["Masculino","Femenino", "Transgenero", "No binario"]
+        genero = input("Ingresar el género (Masculino / Femenino / Transgénero / No binario): ").strip()
         while not genero.replace(" ", "").isalpha() or genero not in opciones_validas:
             print("Por favor, sólo ingresar caracteres.")
-            genero = input(
-                "Ingresar el género (Masculino / Femenino / Transgénero / No binario): ").capitalize()
+            genero = input("Ingresar el género (Masculino / Femenino / Transgénero / No binario): ").capitalize()
 
-        fechaNacimiento = input(
-            "Ingrese la fecha de nacimiento (YYYY-MM-DD): ")
+        fechaNacimiento = input("Ingrese la fecha de nacimiento (YYYY-MM-DD): ")
 
         email = input("Ingrese el email del alumno: ").strip().lower()
         while "@" not in email:
             print("El correo electrónico debe contener un '@'.")
             email = input("Ingrese el email del alumno: ").strip().lower()
 
-        cursos_idCurso = input(
-            "Ingrese el número del curso que pertenece (1-6): ").strip()
+        cursos_idCurso = input("Ingrese el número del curso que pertenece (1-6): ").strip()
         while not cursos_idCurso.isdigit() or int(cursos_idCurso) < 1 or int(cursos_idCurso) > 6:
             print("El número de curso debe ser entre 1 y 6.")
-            cursos_idCurso = input(
-                "Ingrese el número del curso que pertenece (1-6): ").strip()
+            cursos_idCurso = input("Ingrese el número del curso que pertenece (1-6): ").strip()
 
         # Actualizar datos en la base de datos
         sql = """UPDATE alumnos
@@ -295,27 +277,22 @@ def modificarProfesor():
         cursor = conexion.cursor()
 
         # Solicitar el id del profesor que se desea modificar
-        idProfesor = input(
-            "Ingrese el ID del profesor que desea modificar: ").strip()
+        idProfesor = input("Ingrese el ID del profesor que desea modificar: ").strip()
 
         # Verificar si el profesor existe
         select = "SELECT * FROM profesores WHERE idProfesor = %s"
-        cursor.execute(select, (idProfesor,))
-        # En Python, el método fetchone() se utiliza para devolver una sola fila de resultados de una consulta SQL
-        # Obtiene solo el primer registro de la consulta como tuplas
-        resultado = cursor.fetchone()
+        cursor.execute(select, (idProfesor,)) 
+        resultado = cursor.fetchone() # En Python, el método fetchone() se utiliza para devolver una sola fila de resultados de una consulta SQL
+                                      # Obtiene solo el primer registro de la consulta como tuplas
 
         if not resultado:
             print("No se encontró un profesor con el ID proporcionado.")
             return
         os.system("cls")
         print("Datos actuales del profesor: ")
-        print(
-            f"\nID: {resultado[0]}\nNombre: {resultado[1]}\nApellido: {resultado[2]}\nTeléfono: {resultado[3]}")
-        print(
-            f"Email: {resultado[4]}\nDNI: {resultado[5]}\nFecha de Nacimiento: {resultado[6]}")
-        print(
-            f"Matrícula: {resultado[7]}\nDirección: {resultado[8]}\nHoras: {resultado[9]}\nSueldo: {resultado[10]}")
+        print(f"\nID: {resultado[0]}\nNombre: {resultado[1]}\nApellido: {resultado[2]}\nTeléfono: {resultado[3]}")
+        print(f"Email: {resultado[4]}\nDNI: {resultado[5]}\nFecha de Nacimiento: {resultado[6]}")
+        print(f"Matrícula: {resultado[7]}\nDirección: {resultado[8]}\nHoras: {resultado[9]}\nSueldo: {resultado[10]}")
 
         # Solicita los nuevos datos para la modificación
         print("\nIngrese los nuevos datos del profesor: ")
@@ -347,10 +324,9 @@ def modificarProfesor():
                 print("El DNI debe contener 8 digitos.")
                 dni = input("Ingrese el DNI del profesor: ").strip()
 
-        fechaNacimiento = input(
-            "Ingrese la fecha de nacimiento (YYYY-MM-DD): ")
+        fechaNacimiento = input("Ingrese la fecha de nacimiento (YYYY-MM-DD): ")
 
-        matricula = input("Ingrese el matricula del Profesor: ")
+        matricula = input("Ingrese el matricula del profesor: ")
         while not matricula.isalnum():
             print("Por favor, sólo ingresar caracteres alfanumérico.")
             matricula = input("Ingrese la matrícula del profesor: ").strip()
@@ -377,7 +353,7 @@ def modificarProfesor():
                    fechaNacimiento, matricula, direccion.title(), horas, sueldo, idProfesor)
 
         cursor.execute(sql, valores)
-        conexion .commit()
+        conexion.commit()
 
         print("Datos del profesor actualizados correctamente.")
 
@@ -402,8 +378,7 @@ def modificarAlumnoEspecifico():
 
         select = "SELECT * FROM alumnos WHERE legajo = %s"
         cursor.execute(select, (legajo,))
-        # Obtiene solo el primer registro de la consulta como tuplas
-        resultado = cursor.fetchone()
+        resultado = cursor.fetchone() # Obtiene solo el primer registro de la consulta como tuplas
 
         if not resultado:
             print("No se encontró un alumno con el legajo proporcionado.")
@@ -414,8 +389,7 @@ def modificarAlumnoEspecifico():
         print(f"\n[1] . Nombre: {resultado[1]}\n[2] . Apellido: {resultado[2]}\n[3] . DNI: {resultado[3]}")
         print(f"[4] . Dirección: {resultado[4]}\n[5] . Género: {resultado[5]}\n[6] . Fecha de Nacimiento: {resultado[6]}")
         print(f"[7] . Email: {resultado[7]}\n[8] . Curso: {resultado[8]}\n")
-        # Solicita que dato quiero modificar
-        menu = int(input("¿Qué dato desea modificar?: ").strip())
+        menu = int(input("¿Qué dato desea modificar?: ").strip()) # Solicita que dato quiero modificar
         if menu == 1:
 
             nombre = input("Ingrese el nombre del alumno: ").strip()
@@ -474,14 +448,11 @@ def modificarAlumnoEspecifico():
 
         elif menu == 5:
 
-            opciones_validas = ["Masculino",
-                                "Femenino", "Transgenero", "No binario"]
-            genero = input(
-                "Ingresar género (Masculino / Femenino / Transgénero / No binario): ")
+            opciones_validas = ["Masculino","Femenino", "Transgenero", "No binario"]
+            genero = input("Ingresar género (Masculino / Femenino / Transgénero / No binario): ")
             while not genero.replace(" ", "").isalpha() or genero not in opciones_validas:
                 print("Por favor, solo ingresar caracteres.")
-                genero = input(
-                    "Ingresar género (Masculino / Femenino / Transgénero / No binario): ").capitalize()
+                genero = input("Ingresar género (Masculino / Femenino / Transgénero / No binario): ").capitalize()
             sql = "UPDATE alumnos SET genero = %s WHERE legajo = %s"
             valor = (genero, legajo)
             cursor.execute(sql, (valor))
@@ -491,8 +462,7 @@ def modificarAlumnoEspecifico():
 
         elif menu == 6:
 
-            fechaNacimiento = input(
-                "Ingrese la fecha de nacimiento (YYYY-MM-DD): ")
+            fechaNacimiento = input("Ingrese la fecha de nacimiento (YYYY-MM-DD): ")
 
             sql = "UPDATE alumnos SET fechaNacimiento = %s WHERE legajo = %s"
             valor = (fechaNacimiento, legajo)
@@ -521,8 +491,7 @@ def modificarAlumnoEspecifico():
                 "Ingrese el número del curso que pertenece (1-6): ").strip()
             while not cursos_idCurso.isdigit() or int(cursos_idCurso) < 1 or int(cursos_idCurso) > 6:
                 print("El número de curso debe ser entre 1 y 6.")
-                cursos_idCurso = input(
-                    "Ingrese el número del curso que pertenece (1-6): ").strip()
+                cursos_idCurso = input("Ingrese el número del curso que pertenece (1-6): ").strip()
 
             sql = "UPDATE alumnos SET cursos_idCurso = %s WHERE legajo = %s"
             valor = (cursos_idCurso, legajo)
@@ -548,8 +517,7 @@ def modificarProfesorEspecifico():
         cursor = conexion.cursor()
 
         # Solicitar el id del profesor que se desea modificar
-        idProfesor = input(
-            "Ingrese el ID del Profesor que desea modificar: ")
+        idProfesor = input("Ingrese el ID del Profesor que desea modificar: ")
 
         select = "SELECT * FROM profesores WHERE idProfesor = %s"
         cursor.execute(select, (idProfesor,))
@@ -561,12 +529,9 @@ def modificarProfesorEspecifico():
             return
         os.system("cls")
         print("Datos actuales del profesor:")
-        print(
-            f"\n[1] . Nombre: {resultado[1]}\n[2] . Apellido: {resultado[2]}\n[3] . Teléfono: {resultado[3]}")
-        print(
-            f"[4] . Email: {resultado[4]}\n[5] . DNI: {resultado[5]}\n[6] . Fecha de Nacimiento: {resultado[6]}")
-        print(
-            f"[7] . Matrícula: {resultado[7]}\n[8] . Dirección: {resultado[8]}\n[9] . Horas: {resultado[9]}\n[10] . Sueldo: {resultado[10]}")
+        print(f"\n[1] . Nombre: {resultado[1]}\n[2] . Apellido: {resultado[2]}\n[3] . Teléfono: {resultado[3]}")
+        print(f"[4] . Email: {resultado[4]}\n[5] . DNI: {resultado[5]}\n[6] . Fecha de Nacimiento: {resultado[6]}")
+        print(f"[7] . Matrícula: {resultado[7]}\n[8] . Dirección: {resultado[8]}\n[9] . Horas: {resultado[9]}\n[10] . Sueldo: {resultado[10]}")
         # Solicita que dato quiero modificar
         menu = int(input("¿Qué dato desea modificar? :"))
         if menu == 1:
@@ -603,8 +568,7 @@ def modificarProfesorEspecifico():
             if len(telefono) != 10 or not telefono.isdigit():
                 while (len(telefono) != 10 or not telefono.isdigit()):
                     print("El telefono debe contener 10 digitos.")
-                    telefono = input(
-                        "Ingrese el apellido del profesor: ").strip()
+                    telefono = input("Ingrese el apellido del profesor: ").strip()
 
             sql = "UPDATE profesores SET telefono = %s WHERE idProfesor = %s"
             valor = (telefono, idProfesor)
@@ -618,8 +582,7 @@ def modificarProfesorEspecifico():
             email = input("Ingrese la email del profesor: ").strip().lower()
             while "@" not in email:
                 print("El correo electrónico debe contener un '@'.")
-                email = input(
-                    "Ingrese la email del profesor: ").strip().lower()
+                email = input("Ingrese la email del profesor: ").strip().lower()
 
             sql = "UPDATE profesores SET email = %s WHERE idProfesor = %s"
             valor = (email.lower(), idProfesor)
@@ -644,8 +607,7 @@ def modificarProfesorEspecifico():
 
         elif menu == 6:
 
-            fechaNacimiento = input(
-                "Ingrese la fecha de nacimiento (YYYY-MM-DD): ")
+            fechaNacimiento = input("Ingrese la fecha de nacimiento (YYYY-MM-DD): ")
 
             sql = "UPDATE profesores SET fechaNacimiento = %s WHERE idProfesor = %s"
             valor = (fechaNacimiento, idProfesor)
@@ -674,8 +636,7 @@ def modificarProfesorEspecifico():
             direccion = input("Ingrese la dirección del profesor: ").strip()
             while len(direccion) < 3:
                 print("Por favor, ingrese una dirección válida.")
-                direccion = input(
-                    "Ingrese la dirección del profesor: ").strip()
+                direccion = input("Ingrese la dirección del profesor: ").strip()
             sql = "UPDATE profesores SET direccion = %s WHERE idProfesor = %s"
             valor = (direccion.title(), idProfesor)
             cursor.execute(sql, (valor))
@@ -754,8 +715,7 @@ def mostrarDatosAlumnos():
 def mostrarAlumnosOrdenados():
     try:
         conexion_instancia = Conexion()  # Crear una instancia de la conexión
-        # Obtengo la conexión a la base de dato
-        conexion = conexion_instancia.conexionBD()
+        conexion = conexion_instancia.conexionBD() # Obtengo la conexión a la base de dato
         if not conexion:
             print("Error: No se pudo conectar a la base de datos.")
             return
@@ -823,8 +783,7 @@ def mostrarProfesoresOrdenados():
             FROM escuela_privada.profesores 
             ORDER BY apellido ASC
         """
-        cursor.execute(consulta)
-        # Obtiene todos los registros de la consulta como tuplas no modificables
+        cursor.execute(consulta) # Obtiene todos los registros de la consulta como tuplas no modificables
         profesores = cursor.fetchall()
         print("Profesores ordenados alfabéticamente por apellido:\n")
         for apellido, nombre, dni, matricula, telefono, direccion in profesores:
@@ -846,8 +805,7 @@ def mostrarProfesoresOrdenados():
 
 def buscarEspecificoProfesor(dato, comandoSQL):
     conexion_instacia = Conexion()  # Creo una instancia de la conexión
-    # Obtengo la conexión a la base de datos
-    conexion = conexion_instacia.conexionBD()
+    conexion = conexion_instacia.conexionBD() # Obtengo la conexión a la base de datos
 
     # Si conexión es vacío o nada entra a la validación
     if (conexion is None):
@@ -969,9 +927,7 @@ def listaProfesores():
 
         print("Listado de profesores")
         for profesor in resultado:
-            print(
-                f"Legajo: {profesor[0]}, Apellido: {profesor[1]}, nombre: {profesor[2]}")
-
+            print(f"Legajo: {profesor[0]}, Apellido: {profesor[1]}, nombre: {profesor[2]}")
             print("-"*150)
 
     except Exception as e:
