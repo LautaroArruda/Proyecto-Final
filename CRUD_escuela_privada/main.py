@@ -2,9 +2,19 @@ from BD.conexion import Conexion
 import funciones
 import os
 
+# -----------> Colores <-----------
+
+class c:
+    verde = '\033[96m'
+    amarillo = '\033[93m'
+    rojo = '\033[91m'
+    quit = '\033[0m'
+    bold = '\033[1m'
+
+# MENÚ
 def menuPrincipal():
     while True:
-        print("\nEscuela Privada")
+        print("Escuela Privada")
         print("[1]. Ingresar datos")
         print("[2]. Modificar datos")
         print("[3]. Mostrar datos")
@@ -13,14 +23,15 @@ def menuPrincipal():
         opcion = int(input("Seleccione una opción: "))
 
         if opcion < 1 or opcion > 5:
-            print("Opción incorrecta, ingrese nuevamente.")
+            print(c.rojo +"Opción incorrecta, ingrese nuevamente."+ c.quit)
         elif opcion == 5:
-            print("Saliendo del sistema")
+            print(c.verde +"Saliendo del sistema"+ c.quit)
             break
         else:
             ejecutarOpcion(opcion)
 
 def ejecutarOpcion(opcion):
+    # INGRESAR DATOS
     if opcion == 1:
         os.system("cls")
         print("¿Qué datos desea ingresar?")
@@ -36,6 +47,7 @@ def ejecutarOpcion(opcion):
             funciones.ingresarProfesor()
         else:
             os.system("cls")
+    # MODIFICAR DATOS
     elif opcion == 2:
         os.system("cls")
         print("¿Qué datos desea modificar?")
@@ -51,12 +63,14 @@ def ejecutarOpcion(opcion):
             print("[3]. Volver al menu")
             opcion = int(input("Seleccione una opción: "))
             if opcion == 1:
+                os.system("cls")
                 funciones.modificarAlumno()
             elif opcion == 2:
+                os.system("cls")
                 funciones.modificarAlumnoEspecifico()
             elif opcion == 3:
                 os.system("cls")
-                print("Volviendo al menu")
+                print(c.amarillo +"Volviendo al menu"+ c.quit)
         elif opcion == 2:
             os.system("cls")
             print("Profesores")
@@ -72,10 +86,11 @@ def ejecutarOpcion(opcion):
                 funciones.modificarProfesorEspecifico()
             elif opcion == 3:
                 os.system("cls")
-                print("Volviendo al menu")
+                print(c.amarillo +"Volviendo al menú"+ c.quit)
         else:
             os.system("cls")
-    # Mostrar datos        
+
+    # MOSTRAR DATOS        
     elif opcion == 3:  
         while True:
             os.system("cls")
@@ -95,7 +110,6 @@ def ejecutarOpcion(opcion):
                     print("[2]. Mostrar alumnos ordenados alfabeticamente.")
                     print("[3]. Atrás")
                     opcion2 = int(input("Seleccione una opcion: "))
-
                     if opcion2 == 1:
                         os.system("cls")
                         funciones.mostrarDatosAlumnos() 
@@ -103,10 +117,10 @@ def ejecutarOpcion(opcion):
                         os.system("cls")
                         funciones.mostrarAlumnosOrdenados()  
                     elif opcion2 == 3:
-                        print("Volviendo")
+                        print(c.amarillo +"Volviendo"+ c.quit)
                         break
                     else:
-                        print("Opción inválida")
+                        print(c.rojo +"Opción inválida"+ c.quit)
                             
             # Mostrar datos del profesor y ordenamiento alfabeticamente          
             if opcion == 2:
@@ -119,16 +133,14 @@ def ejecutarOpcion(opcion):
                     opcion2 = int(input("Seleccione una opcion: "))
 
                     if opcion2 == 1:
-                        os.system("cls")
                         funciones.mostrarDatosProfesores() 
                     elif opcion2 == 2:
-                        os.system("cls")
                         funciones.mostrarProfesoresOrdenados()  
                     elif opcion2 == 3:
-                        print("Volviendo")
+                        print(c.amarillo +"Volviendo"+ c.quit)
                         break
                     else:
-                        print("Opción no válida")
+                        print(c.rojo +"Opción no válida"+ c.quit)
 
             # Buscar un dato en específico con el filtro de búsqueda
             elif opcion == 3:  
@@ -155,7 +167,7 @@ def ejecutarOpcion(opcion):
                             comandoSQL = "legajo"
                             dato= input("Ingresar legajo del alumno: ").strip()
                             while(not dato.isdigit()):
-                                print("El legajo debe contener solo digitos.")
+                                print(c.rojo +"El legajo debe contener solo digitos."+ c.quit)
                                 dato = input("Ingrese el legajo del alumno: ").strip()
                             funciones.buscarEspecificoAlumnos(dato, comandoSQL)
 
@@ -165,7 +177,7 @@ def ejecutarOpcion(opcion):
                             dato = input("Ingrese el DNI del alumno: ").strip()
                             if len(dato) !=8 or not dato.isdigit():
                                 while(len(dato) !=8 or not dato.isdigit()):
-                                    print("El DNI debe contener 8 digitos.")
+                                    print(c.rojo +"El DNI debe contener 8 digitos."+ c.quit)
                                     dato = input("Ingrese el DNI del alumno: ").strip()
                             funciones.buscarEspecificoAlumnos(dato, comandoSQL)
 
@@ -174,7 +186,7 @@ def ejecutarOpcion(opcion):
                             comandoSQL="nombre"
                             dato = input("Ingrese el nombre del alumno: ").strip()
                             while not dato.isalpha():
-                                print("Por favor, solo ingrese caracteres.")
+                                print(c.rojo +"Por favor, solo ingrese caracteres."+ c.quit)
                                 dato = input("Ingresar nombre del alumno: ").strip()
                             funciones.buscarEspecificoAlumnos(dato.title(), comandoSQL)
 
@@ -183,7 +195,7 @@ def ejecutarOpcion(opcion):
                             comandoSQL = "apellido"
                             dato = input("Ingrese el apellido del alumno: ").strip()
                             while not dato.isalpha():
-                                print("Por favor, solo ingrese caracteres.")
+                                print(c.rojo +"Por favor, solo ingrese caracteres."+ c.quit)
                                 dato = input("Ingrese el apellido del alumno: ").strip()
                             funciones.buscarEspecificoAlumnos(dato.title(), comandoSQL)
 
@@ -194,11 +206,11 @@ def ejecutarOpcion(opcion):
                             dato = input("Ingresar género (Masculino / Femenino / Transgénero / No binario): ").capitalize()
 
                             while not dato.replace(" ", "").isalpha() or dato not in opciones_validas:
-                                print("Por favor, solo ingresar caracteres.")
+                                print(c.rojo +"Por favor, sólo ingresar masculino / femenino / transgénero / no binario."+ c.quit)
                                 dato = input("Ingresar género (Masculino / Femenino / Transgénero / No binario): ").capitalize()
                             funciones.buscarEspecificoAlumnos(dato, comandoSQL)
                         elif opcion2 == 6:
-                            print("Volviendo")
+                            print(c.amarillo +"Volviendo"+ c.quit)
                             break
 
                     elif opcion == 2:
@@ -217,7 +229,7 @@ def ejecutarOpcion(opcion):
                             comandoSQL = "idProfesor"
                             dato = input ("Ingrese ID del profesor: ").strip()
                             while not dato.isdigit():
-                                print("Por favor, solo ingresar números.")
+                                print(c.rojo +"Por favor, solo ingresar números."+ c.quit)
                                 dato = input ("Ingresar ID del profesor: ").strip()
                             funciones.buscarEspecificoProfesor(dato, comandoSQL)
                                 
@@ -227,7 +239,7 @@ def ejecutarOpcion(opcion):
                             dato = input("Ingrese DNI del profesor: ").strip()
                             if  len(dato) !=8 or not dato.isdigit():
                                 while(len(dato) !=8 or not dato.isdigit()):
-                                    print("El DNI debe contener 8 digitos.")
+                                    print(c.rojo +"El DNI debe contener 8 digitos."+ c.quit)
                                     dato = input("Ingrese el DNI del profesor: ").strip()
                             funciones.buscarEspecificoProfesor(dato, comandoSQL)
 
@@ -236,7 +248,7 @@ def ejecutarOpcion(opcion):
                             comandoSQL = "nombre"
                             dato = input("Ingrese el nombre del profesor: ").strip()
                             while not dato.isalpha():
-                                print("Por favor, solo ingrese caracteres.")
+                                print(c.rojo +"Por favor, solo ingrese caracteres."+ c.quit)
                                 dato = input("Ingrese nombre del profesor: ").strip()
                             funciones.buscarEspecificoProfesor(dato.title(), comandoSQL)
 
@@ -245,7 +257,7 @@ def ejecutarOpcion(opcion):
                             comandoSQL = "apellido"
                             dato = input("Ingrese el apellido del profesor: ").strip()
                             while not dato.isalpha():
-                                print("Por favor, solo ingrese caracteres.")
+                                print(c.rojo +"Por favor, solo ingrese caracteres."+ c.quit)
                                 dato = input("Ingrese el apellido del profesor: ").strip()
                             funciones.buscarEspecificoProfesor(dato.title(), comandoSQL)
                         
@@ -253,26 +265,26 @@ def ejecutarOpcion(opcion):
                         elif(opcion2 == 5):
                             comandoSQL = "matricula"
                             dato = input ("Ingresar la matrícula del profesor: ").strip()
-
                             while not dato.isalnum():
-                                print("Por favor, solo ingresar caracteres alfanuméricos.")
+                                print(c.rojo +"Por favor, solo ingresar caracteres alfanuméricos."+ c.quit)
                                 dato = input("Ingresar la matrícula del profesor: ").strip()
                             funciones.buscarEspecificoProfesor(dato, comandoSQL)
                         #Volver a atras    
                         elif opcion == 6:
-                            print("Volviendo")
+                            print(c.amarillo +"Volviendo"+ c.quit)
                             break
                     elif opcion == 3:
-                        print("Volviendo")
+                        print(c.amarillo +"Volviendo"+ c.quit)
                         break
             elif opcion == 4:
                 os.system("cls")
-                print("Volviendo")
+                print(c.amarillo +"Volviendo"+ c.quit)
                 break
             else:
-                print("Opción no válida")                        
-    # Eliminar datos
+                print(c.rojo +"Opción no válida"+ c.quit)                        
+    # ELIMINAR DATOS
     elif opcion == 4:  
+        os.system("cls")
         while True:
             print("\n¿A quién desea dar de baja?")
             print("[1]. Dar de baja a un alumno")
@@ -281,28 +293,30 @@ def ejecutarOpcion(opcion):
             opcion = int(input("Seleccione una opción: "))
             # Eliminar Alumno
             if opcion == 1:
+                os.system("cls")
                 funciones.listaAlumnos()
                 dato = input("Ingrese el legajo del alumno que desea eliminar: ").strip()
                 while not dato.isdigit() :
-                    print("El legajo tiene que contener sólo 5 números enteros.")
+                    print(c.rojo +"El legajo tiene que contener sólo 5 números enteros."+ c.quit)
                     dato = input("Ingrese el legajo del alumno que desea eliminar: ").strip()
                 funciones.eliminarAlumno(dato)
                 
             # Eliminar Profesor                
-            elif opcion ==2:    
+            elif opcion ==2:
+                os.system("cls")  
                 funciones.listaProfesores()
                 dato = input("Ingrese el ID del profesor que desea eliminar: ").strip()
                 while not dato.isdigit():
-                    print("El ID tiene que contener solo números enteros.")
+                    print(c.rojo +"El ID tiene que contener solo números enteros."+ c.quit)
                     dato = input("Ingrese el ID del profesor que desea eliminar: ").strip()   
                 funciones.eliminarProfe(dato)
 
             # Volver al menú principal 
             elif opcion == 3:
                 os.system("cls")
-                print("Volviendo al menú principal")
+                print(c.amarillo +"Volviendo al menú principal"+ c.quit)
                 break
             else:
-                print("Opción no válida")
+                print(c.rojo +"Opción no válida"+ c.quit)
 # Ejecutar el menu principal
 menuPrincipal()
